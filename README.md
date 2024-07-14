@@ -24,7 +24,7 @@ If all tickets are sold-out, the buy ticket button is disabled.
   ## FUNCTIONALITY
 This describes the JavaScript:
  step 1: Fetch()
- F-etches all films data from the /films endpoint and renders each movie using the renderOneMovie function.
+ -Fetches films data from a local server running JSON DB server and renders each movie using the renderOneMovie function.
 
  step 2: function (renderOneMovie)
 -Creates a list element for each film, displaying the poster, title, runtime, showtime, and available tickets.
