@@ -10,11 +10,13 @@ function getAllFilms() {
     .catch(error => console.log('Failed to fetch data:', error));
 }
 
+//renders the details of one film to the DOM
 function renderOneMovie(film) {
   const ul = document.getElementById('films');
   const li = document.createElement('li');
   li.classList.add('film-item');
 
+//Creates a list containers for the film's details
   li.innerHTML = `
   <img src="${film.poster}">
   <div class="content">
@@ -28,6 +30,7 @@ function renderOneMovie(film) {
 
   const buyTicketBtn = li.querySelector(`#buyTicket-${film.id}`);
 
+//activates the buy ticket button when clicked
   buyTicketBtn.addEventListener("click", function () {
     if (film.capacity > film.tickets_sold) {
       film.tickets_sold++;
@@ -51,6 +54,7 @@ function renderOneMovie(film) {
   });
 }
 
+//updates ticket availability after a ticket is bought
 function updateTicketAvailability(film) {
   const ticketsCountElement = document.getElementById(`tickets-count-${film.id}`);
   ticketsCountElement.textContent = `Tickets available: ${film.capacity - film.tickets_sold}`;
