@@ -1,4 +1,4 @@
-// function to get all films resources
+// Function to get all films resources
 function getAllFilms() {
   fetch('http://localhost:3000/films/')
     .then((res) => res.json())
@@ -10,56 +10,58 @@ function getAllFilms() {
     .catch(error => console.log('Failed to fetch data:', error));
 }
 
-function renderOneMovie(film){
-  const ul = document.getElementById('films')
-  const li = document.createElement('li')
-  li.classList.add('film-item')
+function renderOneMovie(film) {
+  const ul = document.getElementById('films');
+  const li = document.createElement('li');
+  li.classList.add('film-item');
 
-  li.innerHTML =`
+  li.innerHTML = `
   <img src="${film.poster}">
-  <div class = "content">
-  <h3>${film.title}</h3>
-  <p > Runtime: ${film.runtime}</p>
-  <p > Showtime: ${film.showtime}</p>
-  <p> Tickets available: ${film.capacity- film.tickets_sold}</P>
-  <button id="buyTicket-${film.id}"disabled>Buy Ticket</button>
-  </div>`
-  ul.appendChild(li)
+  <div class="content">
+    <h3>${film.title}</h3>
+    <p>Runtime: ${film.runtime}</p>
+    <p>Showtime: ${film.showtime}</p>
+    <p id="tickets-count-${film.id}">Tickets available: ${film.capacity - film.tickets_sold}</p>
+    <button id="buyTicket-${film.id}" ${film.tickets_sold >= film.capacity ? 'disabled' : ''}>Buy Ticket</button>
+  </div>`;
+  ul.appendChild(li);
 
-const buyTicketBtn = li.querySelector("buyTicket-${film.id}")
-buyTicketBtn.addEventListener("click", function(){
-   if (film.capacity > film.tickets_sold) {
-    film.tickets_sold++;
-     ticketsCountElement.textContent = `Tickets Available: ${film.capacity - film.tickets_sold}`;
- if (film.tickets_sold >= film.capacity) {
-      buyTicketBtn.disabled = true;
-      buyTicketBtn.textContent = 'Sold Out';
+  const buyTicketBtn = li.querySelector(`#buyTicket-${film.id}`);
+
+  buyTicketBtn.addEventListener("click", function () {
+    if (film.capacity > film.tickets_sold) {
+      film.tickets_sold++;
+      updateTicketAvailability(film);
+
+      if (film.tickets_sold >= film.capacity) {
+        buyTicketBtn.disabled = true;
+      }
+    } else {
+      alert(`Sorry, no tickets available.`);
     }
-  } else {
-    alert('Sorry, no tickets available.');
-  }
-})
+  });
 
-buyTicketBtn.addEventListener('keydown', (event) => {
-  // Check if the key pressed is Enter or Spacebar
-  if (event.key === 'Enter' || event.key === ' ') {
-    event.preventDefault(); // Prevent default form submission behavior
-    // Trigger the ticket purchase logic
-    buyTicketBtn.click();
-  }
-});
+  // Adds a keyboard eventListener to buy ticket button
+  // Checks if the key pressed is Enter or Spacebar
+  buyTicketBtn.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      buyTicketBtn.click();
+    }
+  });
 }
 
+function updateTicketAvailability(film) {
+  const ticketsCountElement = document.getElementById(`tickets-count-${film.id}`);
+  ticketsCountElement.textContent = `Tickets available: ${film.capacity - film.tickets_sold}`;
+}
 
+// Function to get data from the fetch and render it to the DOM
+function initialize() {
+  getAllFilms();
+}
 
-
-//function to get data from the fecth and render it to the DOM
-function initialized() {
- getAllFilms()
- }
-
-
-//Initialize the application
-document.addEventListener('DOMContentLoaded', function() {
-  initialized();
+// Initialize the application
+document.addEventListener('DOMContentLoaded', function () {
+  initialize();
 });
