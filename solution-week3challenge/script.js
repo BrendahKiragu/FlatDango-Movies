@@ -4,34 +4,32 @@ function getAllFilms() {
     .then((res) => res.json())
     .then((films) => {
       films.forEach((film) => {
-        renderOneMovie(film);
+        renderAllMovie(film);
       });
     })
     .catch(error => console.log('Failed to fetch data:', error));
 }
 
-//renders the details of one film to the DOM
-function renderOneMovie(film) {
-  const ul = document.getElementById('films');
-  const li = document.createElement('li');
-  li.classList.add('film-item');
+//renders the details of all films to the DOM
+ function renderAllMovie(film) {
+   const ul = document.getElementById('films');
+   const li = document.createElement('li');
+   li.classList.add('film-item');
 
-//Creates a list containers for the film's details
-  li.innerHTML = `
-  <img src="${film.poster}">
-  <div class="content">
-    <h3>${film.title}</h3>
-    <p>Runtime: ${film.runtime}</p>
-    <p>Showtime: ${film.showtime}</p>
-    <p id="tickets-count-${film.id}">Tickets available: ${film.capacity - film.tickets_sold}</p>
-    <button id="buyTicket" ${film.tickets_sold >= film.capacity ? 'disabled' : ''}>Buy Ticket</button>
-  </div>`;
-  ul.appendChild(li);
+ //Creates a list containers for the film's details
+   li.innerHTML = `
+   <img src="${film.poster}">
+   <div class="content">
+     <h3>${film.title}</h3>
+     <p>Runtime: ${film.runtime}</p>
+     <p>Showtime: ${film.showtime}</p>
+     <p id="tickets-count-${film.id}">Tickets available: ${film.capacity - film.tickets_sold}</p>
+     <button id="buyTicket" ${film.tickets_sold >= film.capacity ? 'disabled' : ''}>Buy Ticket</button>
+   </div>`;
+   ul.appendChild(li);
 
-  const buyTicketBtn = li.querySelector(`#buyTicket`);
-
-//activates the buy ticket button when clicked
-  buyTicketBtn.addEventListener("click", function () {
+const buyTicketBtn = li.querySelector(`#buyTicket`);
+ buyTicketBtn.addEventListener("click", function () {
     if (film.capacity > film.tickets_sold) {
       film.tickets_sold++;
       updateTicketAvailability(film);
@@ -44,9 +42,8 @@ function renderOneMovie(film) {
     }
   });
 
-  // Adds a keyboard eventListener to buy ticket button
-  // Checks if the key pressed is Enter or Spacebar
-  buyTicketBtn.addEventListener('keydown', (event) => {
+  //adds a keyboard eventListener to buy ticket button
+   buyTicketBtn.addEventListener('keydown', (event) => {
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
       buyTicketBtn.click();
@@ -62,10 +59,29 @@ function updateTicketAvailability(film) {
 
 // Function to get data from the fetch and render it to the DOM
 function initialize() {
-  getAllFilms();
+  getAllFilms();  
 }
+
 
 // Initialize the application
 document.addEventListener('DOMContentLoaded', function () {
   initialize();
 });
+
+
+
+
+//fetches and renders the first movie when the page loads
+// function renderFirstMovie(film){
+//    const firstMovie = document.getElementById('first-film')
+//    const list = document.createElement("li")
+//    firstMovie.appendChild(list)
+
+//    list.innerHTML = `
+//     <h3>${film.title}</h3>
+//     <p>Runtime: ${film.runtime}</p>
+//     <p>Showtime: ${film.showtime}</p>
+//     <p>Tickets available: ${film.capacity - film.tickets_sold}</p>
+//     <img src="${film.poster}">
+//   `
+// }
