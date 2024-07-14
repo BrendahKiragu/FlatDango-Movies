@@ -24,11 +24,11 @@ function renderOneMovie(film) {
     <p>Runtime: ${film.runtime}</p>
     <p>Showtime: ${film.showtime}</p>
     <p id="tickets-count-${film.id}">Tickets available: ${film.capacity - film.tickets_sold}</p>
-    <button id="buyTicket-${film.id}" ${film.tickets_sold >= film.capacity ? 'disabled' : ''}>Buy Ticket</button>
+    <button id="buyTicket" ${film.tickets_sold >= film.capacity ? 'disabled' : ''}>Buy Ticket</button>
   </div>`;
   ul.appendChild(li);
 
-  const buyTicketBtn = li.querySelector(`#buyTicket-${film.id}`);
+  const buyTicketBtn = li.querySelector(`#buyTicket`);
 
 //activates the buy ticket button when clicked
   buyTicketBtn.addEventListener("click", function () {

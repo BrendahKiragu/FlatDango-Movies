@@ -1,0 +1,28 @@
+body {
+  margin: 0px;
+  border:none;
+}
+
+h1{
+  text-align: center;
+  font-family:cursive;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+}
+.film-item{
+  background-color: antiquewhite;
+  margin: 15px;
+  list-style: none;
+}
+
+.film-item img{
+  height:30%;
+  width: 20%;
+}
+
+#buyTicket{
+  background-color: white;
+  border-radius: 0.5rem;
+  padding:10px 20px;
+}
