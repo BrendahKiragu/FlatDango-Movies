@@ -22,7 +22,7 @@ If all tickets are sold-out, the buy ticket button is disabled.
   -Fetch API 
 
   ## FUNCTIONALITY
-This describes the JavaScript:
+This app works by:
  step 1: Fetch()
  -Fetches films data from a local server running JSON DB server and renders each movie using the renderOneMovie function.
 
