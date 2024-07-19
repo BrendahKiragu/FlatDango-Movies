@@ -35,11 +35,22 @@ body {
   animation: blink 3s linear infinite;
 }
 
+.firstMoviecontainer{
+  color: blue;
+  background-color:aquamarine;
+  list-style: none;
+  text-align: center;
+  font-size: 16px;
+}
+.firstMoviecontainer img{
+  width: 50%;
+}
+
 .film-item{
-  background-color: antiquewhite;
+  background-color: whitesmoke;
   margin: 15px;
   list-style: none;
-}
+  }
 
 .film-item img{
   height:30%;
