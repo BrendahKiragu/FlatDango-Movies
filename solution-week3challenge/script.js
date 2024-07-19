@@ -4,7 +4,7 @@
    fetch('http://localhost:3000/films/1')
    .then(res => res.json())
    .then((films)=>{
-           renderFirstMovie(films)
+     renderFirstMovie(films)
    })
    .catch(error=>{console.log('Failed to fetch data:', error)})
    }
@@ -12,6 +12,7 @@
  function renderFirstMovie(film){
     const firstMovie = document.getElementById('first-film')
     const list = document.createElement("li")
+    list.classList.add('firstMoviecontainer')
     
     list.innerHTML = `
      <h3>${film.title}</h3>
