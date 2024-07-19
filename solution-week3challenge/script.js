@@ -1,17 +1,42 @@
+
+//function to fetch first movie
+ function fetchFirstFilm (){
+   fetch('http://localhost:3000/films/1')
+   .then(res => res.json())
+   .then((films)=>{
+           renderFirstMovie(films)
+   })
+   .catch(error=>{console.log('Failed to fetch data:', error)})
+   }
+//fetches and renders the first movie when the page loads
+ function renderFirstMovie(film){
+    const firstMovie = document.getElementById('first-film')
+    const list = document.createElement("li")
+    
+    list.innerHTML = `
+     <h3>${film.title}</h3>
+     <p>Runtime: ${film.runtime}</p>
+     <p>Showtime: ${film.showtime}</p>
+     <p>Tickets available: ${film.capacity - film.tickets_sold}</p>
+     <img src="${film.poster}">
+   `
+  firstMovie.appendChild(list)
+ }
+
 // Function to get all films resources
 function getAllFilms() {
   fetch('http://localhost:3000/films/')
     .then((res) => res.json())
     .then((films) => {
-      films.forEach((film) => {
-        renderAllMovie(film);
+          films.forEach((film) => {
+          renderAllMovies(film);
       });
     })
     .catch(error => console.log('Failed to fetch data:', error));
 }
 
 //renders the details of all films to the DOM
- function renderAllMovie(film) {
+ function renderAllMovies(film) {
    const ul = document.getElementById('films');
    const li = document.createElement('li');
    li.classList.add('film-item');
@@ -59,6 +84,7 @@ function updateTicketAvailability(film) {
 
 // Function to get data from the fetch and render it to the DOM
 function initialize() {
+  fetchFirstFilm()
   getAllFilms();  
 }
 
@@ -67,21 +93,3 @@ function initialize() {
 document.addEventListener('DOMContentLoaded', function () {
   initialize();
 });
-
-
-
-
-//fetches and renders the first movie when the page loads
-// function renderFirstMovie(film){
-//    const firstMovie = document.getElementById('first-film')
-//    const list = document.createElement("li")
-//    firstMovie.appendChild(list)
-
-//    list.innerHTML = `
-//     <h3>${film.title}</h3>
-//     <p>Runtime: ${film.runtime}</p>
-//     <p>Showtime: ${film.showtime}</p>
-//     <p>Tickets available: ${film.capacity - film.tickets_sold}</p>
-//     <img src="${film.poster}">
-//   `
-// }
