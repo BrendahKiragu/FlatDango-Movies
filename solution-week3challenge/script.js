@@ -4,25 +4,26 @@
    fetch('http://localhost:3000/films/1')
    .then(res => res.json())
    .then((films)=>{
-     renderFirstMovie(films)
+     renderMovieDetails(films, 'first-film')
    })
    .catch(error=>{console.log('Failed to fetch data:', error)})
    }
+
 //fetches and renders the first movie when the page loads
- function renderFirstMovie(film){
-    const firstMovie = document.getElementById('first-film')
-    const list = document.createElement("li")
-    list.classList.add('firstMoviecontainer')
+//  function renderFirstMovie(film){
+//     const firstMovie = document.getElementById('first-film')
+//     const list = document.createElement("li")
+//     list.classList.add('firstMoviecontainer')
     
-    list.innerHTML = `
-     <h3>${film.title}</h3>
-     <p>Runtime: ${film.runtime}</p>
-     <p>Showtime: ${film.showtime}</p>
-     <p>Tickets available: ${film.capacity - film.tickets_sold}</p>
-     <img src="${film.poster}">
-   `
-  firstMovie.appendChild(list)
- }
+//     list.innerHTML = `
+//      <h3>${film.title}</h3>
+//      <p>Runtime: ${film.runtime}</p>
+//      <p>Showtime: ${film.showtime}</p>
+//      <p>Tickets available: ${film.capacity - film.tickets_sold}</p>
+//      <img src="${film.poster}">
+//    `
+//   firstMovie.appendChild(list)
+//  }
 
 // Function to get all films resources
 function getAllFilms() {
@@ -34,6 +35,19 @@ function getAllFilms() {
       });
     })
     .catch(error => console.log('Failed to fetch data:', error));
+}
+
+function renderMovieDetails(film, containerId) {
+  const movieDetails = document.getElementById(containerId);
+  movieDetails.innerHTML = `
+    <li>
+      <h3>${film.title}</h3>
+      <p>Runtime: ${film.runtime}</p>
+      <p>Showtime: ${film.showtime}</p>
+      <p>Tickets available: ${film.capacity - film.tickets_sold}</p>
+      <img src="${film.poster}" alt="${film.title} poster">
+    </li>
+  `;
 }
 
 //renders the details of all films to the DOM
@@ -53,6 +67,10 @@ function getAllFilms() {
      <button id="buyTicket" ${film.tickets_sold >= film.capacity ? 'disabled' : ''}>Buy Ticket</button>
    </div>`;
    ul.appendChild(li);
+
+li.addEventListener('click', ()=>{
+  renderMovieDetails(film, 'first-film')
+})
 
 const buyTicketBtn = li.querySelector(`#buyTicket`);
  buyTicketBtn.addEventListener("click", function () {
