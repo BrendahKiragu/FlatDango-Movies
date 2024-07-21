@@ -42,6 +42,10 @@ body {
   margin: auto;
  }
 
+ /* #containerId{
+  background-color: black;
+ } */
+
 #all-movies{
   background-color: aquamarine;
   border: 1px solid black;
@@ -60,6 +64,12 @@ body {
   width: 50%;
 }
 
+#selectedMovie{
+  list-style: none;
+}
+#selectedMovie img{
+  width: 50%;
+}
 .film-item{
   background-color: whitesmoke;
   margin: 15px;
