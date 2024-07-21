@@ -18,6 +18,7 @@
      <h3>${film.title}</h3>
      <p>Runtime: ${film.runtime}</p>
      <p>Showtime: ${film.showtime}</p>
+     <p> Description: ${film.description}</p>
      <p>Tickets available: ${film.capacity - film.tickets_sold}</p>
      <img src="${film.poster}">
    `
@@ -44,6 +45,7 @@ function renderMovieDetails(film, containerId) {
       <h3>${film.title}</h3>
       <p>Runtime: ${film.runtime}</p>
       <p>Showtime: ${film.showtime}</p>
+      <p> Description: ${film.description}</p>
       <p>Tickets available: ${film.capacity - film.tickets_sold}</p>
       
     </li>
@@ -67,6 +69,7 @@ function renderMovieDetails(film, containerId) {
      <h3>${film.title}</h3>
      <p>Runtime: ${film.runtime}</p>
      <p>Showtime: ${film.showtime}</p>
+     <p> Description: ${film.description}</p>
      <p id="tickets-count-${film.id}">Tickets available: ${film.capacity - film.tickets_sold}</p>
      <button id="buyTicket" ${film.tickets_sold >= film.capacity ? 'disabled' : ''}>Buy Ticket</button>
    </div>`;
