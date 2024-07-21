@@ -4,26 +4,25 @@
    fetch('http://localhost:3000/films/1')
    .then(res => res.json())
    .then((films)=>{
-     renderMovieDetails(films, 'first-film')
+     renderFirstMovie(films)
    })
    .catch(error=>{console.log('Failed to fetch data:', error)})
    }
-
 //fetches and renders the first movie when the page loads
-//  function renderFirstMovie(film){
-//     const firstMovie = document.getElementById('first-film')
-//     const list = document.createElement("li")
-//     list.classList.add('firstMoviecontainer')
+ function renderFirstMovie(film){
+    const firstMovie = document.getElementById('first-film')
+    const list = document.createElement("li")
+    list.classList.add('firstMoviecontainer')
     
-//     list.innerHTML = `
-//      <h3>${film.title}</h3>
-//      <p>Runtime: ${film.runtime}</p>
-//      <p>Showtime: ${film.showtime}</p>
-//      <p>Tickets available: ${film.capacity - film.tickets_sold}</p>
-//      <img src="${film.poster}">
-//    `
-//   firstMovie.appendChild(list)
-//  }
+    list.innerHTML = `
+     <h3>${film.title}</h3>
+     <p>Runtime: ${film.runtime}</p>
+     <p>Showtime: ${film.showtime}</p>
+     <p>Tickets available: ${film.capacity - film.tickets_sold}</p>
+     <img src="${film.poster}">
+   `
+  firstMovie.appendChild(list)
+ }
 
 // Function to get all films resources
 function getAllFilms() {
@@ -68,10 +67,10 @@ function renderMovieDetails(film, containerId) {
    </div>`;
    ul.appendChild(li);
 
-li.addEventListener('click', ()=>{
-  renderMovieDetails(film, 'first-film')
-})
 
+  li.addEventListener('click', () => {
+  renderMovieDetails(film, 'first-film');})
+   
 const buyTicketBtn = li.querySelector(`#buyTicket`);
  buyTicketBtn.addEventListener("click", function () {
     if (film.capacity > film.tickets_sold) {
@@ -93,6 +92,7 @@ const buyTicketBtn = li.querySelector(`#buyTicket`);
       buyTicketBtn.click();
     }
   });
+
 }
 
 //updates ticket availability after a ticket is bought
