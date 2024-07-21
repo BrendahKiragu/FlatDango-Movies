@@ -39,12 +39,13 @@ function getAllFilms() {
 function renderMovieDetails(film, containerId) {
   const movieDetails = document.getElementById(containerId);
   movieDetails.innerHTML = `
-    <li>
+    <li id="selectedMovie">
+      <img src="${film.poster}" alt="${film.title} poster">
       <h3>${film.title}</h3>
       <p>Runtime: ${film.runtime}</p>
       <p>Showtime: ${film.showtime}</p>
       <p>Tickets available: ${film.capacity - film.tickets_sold}</p>
-      <img src="${film.poster}" alt="${film.title} poster">
+      
     </li>
   `;
 }
