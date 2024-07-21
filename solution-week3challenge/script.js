@@ -48,6 +48,10 @@ function renderMovieDetails(film, containerId) {
       
     </li>
   `;
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  })
 }
 
 //renders the details of all films to the DOM
