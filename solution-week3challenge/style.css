@@ -6,7 +6,7 @@ body {
 #header #navbar a{
   float: right;
   text-align: center;
-  padding: 12px;
+  padding: 12px 0;
   line-height: 25px;
   color: blue;
 }
@@ -35,13 +35,27 @@ body {
   animation: blink 3s linear infinite;
 }
 
+#container{
+  display: flex;
+  border: 1px solid black;
+  padding: 10px;
+  margin: auto;
+ }
+
+#all-movies{
+  background-color: aquamarine;
+  border: 1px solid black;
+}
+
+
 .firstMoviecontainer{
   color: blue;
-  background-color:aquamarine;
+  background-color: gold;
   list-style: none;
   text-align: center;
   font-size: 16px;
 }
+
 .firstMoviecontainer img{
   width: 50%;
 }
@@ -50,17 +64,26 @@ body {
   background-color: whitesmoke;
   margin: 15px;
   list-style: none;
+  display: flex;
+  align-items: center;
+  padding: 10px;
   }
 
 .film-item img{
-  height:30%;
-  width: 20%;
+  height: auto;
+  width: 25%;
+  margin-right: 10px;
 }
 
 #buyTicket{
   background-color: white;
   border-radius: 0.5rem;
   padding:10px 20px;
+  cursor: pointer;
+}
+#buyTicket:disabled{
+  background-color: gray;
+  cursor: not-allowed;
 }
 
 #footer .socials a {
