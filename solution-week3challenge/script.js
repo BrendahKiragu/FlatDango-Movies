@@ -8,6 +8,7 @@
    })
    .catch(error=>{console.log('Failed to fetch data:', error)})
    }
+
 //fetches and renders the first movie when the page loads
  function renderFirstMovie(film){
     const firstMovie = document.getElementById('first-film')
@@ -37,6 +38,12 @@ function getAllFilms() {
     .catch(error => console.log('Failed to fetch data:', error));
 }
 
+//updates ticket availability after a ticket is bought
+function updateTicketAvailability(film) {
+  const ticketsCountElement = document.getElementById(`tickets-count-${film.id}`);
+  ticketsCountElement.textContent = `Tickets available: ${film.capacity - film.tickets_sold}`;
+}
+
 function renderMovieDetails(film, containerId) {
   const movieDetails = document.getElementById(containerId);
   movieDetails.innerHTML = `
@@ -46,40 +53,12 @@ function renderMovieDetails(film, containerId) {
       <p>Runtime: ${film.runtime}</p>
       <p>Showtime: ${film.showtime}</p>
       <p> Description: ${film.description}</p>
-      <p>Tickets available: ${film.capacity - film.tickets_sold}</p>
-      
+      <p id ='tickets-count-${film.id}'>Tickets available: ${film.capacity - film.tickets_sold}</p>
+      <button id="buyTicket" ${film.tickets_sold >= film.capacity ? 'disabled' : ''}>Buy Ticket</button>
     </li>
   `;
-  window.scrollTo({
-    top: 0,
-    behavior: 'smooth'
-  })
-}
-
-//renders the details of all films to the DOM
- function renderAllMovies(film) {
-   const ul = document.getElementById('films');
-   const li = document.createElement('li');
-   li.classList.add('film-item');
-
- //Creates a list containers for the film's details
-   li.innerHTML = `
-   <img src="${film.poster}">
-   <div class="content">
-     <h3>${film.title}</h3>
-     <p>Runtime: ${film.runtime}</p>
-     <p>Showtime: ${film.showtime}</p>
-     <p> Description: ${film.description}</p>
-     <p id="tickets-count-${film.id}">Tickets available: ${film.capacity - film.tickets_sold}</p>
-     <button id="buyTicket" ${film.tickets_sold >= film.capacity ? 'disabled' : ''}>Buy Ticket</button>
-   </div>`;
-   ul.appendChild(li);
-
-
-  li.addEventListener('click', () => {
-  renderMovieDetails(film, 'first-film');})
-   
-const buyTicketBtn = li.querySelector(`#buyTicket`);
+  
+  const buyTicketBtn = movieDetails.querySelector(`#buyTicket`);
  buyTicketBtn.addEventListener("click", function () {
     if (film.capacity > film.tickets_sold) {
       film.tickets_sold++;
@@ -101,13 +80,40 @@ const buyTicketBtn = li.querySelector(`#buyTicket`);
     }
   });
 
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  })
 }
 
-//updates ticket availability after a ticket is bought
-function updateTicketAvailability(film) {
-  const ticketsCountElement = document.getElementById(`tickets-count-${film.id}`);
-  ticketsCountElement.textContent = `Tickets available: ${film.capacity - film.tickets_sold}`;
-}
+//renders the details of all films to the DOM
+ function renderAllMovies(film) {
+   const ul = document.getElementById('films');
+   const li = document.createElement('li');
+   li.classList.add('film-item');
+
+ //Creates a list containers for the film's details
+   li.innerHTML = `
+    <img src="${film.poster}">
+    <h3>${film.title}</h3>
+   `
+  //  <img src="${film.poster}">
+  //  <div class="content">
+  //    <h3>${film.title}</h3>
+  //    <p>Runtime: ${film.runtime}</p>
+  //    <p>Showtime: ${film.showtime}</p>
+  //    <p> Description: ${film.description}</p>
+  //    <p id="tickets-count-${film.id}">Tickets available: ${film.capacity - film.tickets_sold}</p>
+  //    <button id="buyTicket" ${film.tickets_sold >= film.capacity ? 'disabled' : ''}>Buy Ticket</button>
+  //  </div>`;
+   ul.appendChild(li);
+
+
+  li.addEventListener('click', () => {
+  renderMovieDetails(film, 'first-film');})
+  }
+   
+
 
 // Function to get data from the fetch and render it to the DOM
 function initialize() {
