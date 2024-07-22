@@ -16,14 +16,16 @@
     list.classList.add('firstMoviecontainer')
     
     list.innerHTML = `
+     <img src="${film.poster}">
      <h3>${film.title}</h3>
      <p>Runtime: ${film.runtime}</p>
      <p>Showtime: ${film.showtime}</p>
      <p> Description: ${film.description}</p>
-     <p>Tickets available: ${film.capacity - film.tickets_sold}</p>
-     <img src="${film.poster}">
-   `
+     <p id="tickets-count-${film.id}">Tickets available: ${film.capacity - film.tickets_sold}</p>
+     <button id="buyTicket" ${film.tickets_sold >= film.capacity ? 'disabled' : ''}>Buy Ticket</button>
+  `
   firstMovie.appendChild(list)
+  buyTickets(film)
  }
 
 // Function to get all films resources
@@ -53,12 +55,20 @@ function renderMovieDetails(film, containerId) {
       <p>Runtime: ${film.runtime}</p>
       <p>Showtime: ${film.showtime}</p>
       <p> Description: ${film.description}</p>
-      <p id ='tickets-count-${film.id}'>Tickets available: ${film.capacity - film.tickets_sold}</p>
+      <p id="tickets-count-${film.id}">Tickets available: ${film.capacity - film.tickets_sold}</p>
       <button id="buyTicket" ${film.tickets_sold >= film.capacity ? 'disabled' : ''}>Buy Ticket</button>
     </li>
   `;
   
-  const buyTicketBtn = movieDetails.querySelector(`#buyTicket`);
+  buyTickets(film)
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  })
+}
+
+function buyTickets (film){
+ const buyTicketBtn = document.getElementById(`buyTicket`);
  buyTicketBtn.addEventListener("click", function () {
     if (film.capacity > film.tickets_sold) {
       film.tickets_sold++;
@@ -79,11 +89,6 @@ function renderMovieDetails(film, containerId) {
       buyTicketBtn.click();
     }
   });
-
-  window.scrollTo({
-    top: 0,
-    behavior: 'smooth'
-  })
 }
 
 //renders the details of all films to the DOM
@@ -97,30 +102,17 @@ function renderMovieDetails(film, containerId) {
     <img src="${film.poster}">
     <h3>${film.title}</h3>
    `
-  //  <img src="${film.poster}">
-  //  <div class="content">
-  //    <h3>${film.title}</h3>
-  //    <p>Runtime: ${film.runtime}</p>
-  //    <p>Showtime: ${film.showtime}</p>
-  //    <p> Description: ${film.description}</p>
-  //    <p id="tickets-count-${film.id}">Tickets available: ${film.capacity - film.tickets_sold}</p>
-  //    <button id="buyTicket" ${film.tickets_sold >= film.capacity ? 'disabled' : ''}>Buy Ticket</button>
-  //  </div>`;
    ul.appendChild(li);
-
 
   li.addEventListener('click', () => {
   renderMovieDetails(film, 'first-film');})
   }
-   
-
 
 // Function to get data from the fetch and render it to the DOM
 function initialize() {
   fetchFirstFilm()
   getAllFilms();  
 }
-
 
 // Initialize the application
 document.addEventListener('DOMContentLoaded', function () {
